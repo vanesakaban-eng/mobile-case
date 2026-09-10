@@ -1,17 +1,20 @@
-# tugas_pertama
+# Tugas 4 - Mobile Developer Documentation
 
-A new Flutter project.
+Aplikasi Flutter ini dibuat untuk memenuhi tugas navigasi antar halaman (Stack Navigation) menggunakan kelas `Navigator` di Flutter. Aplikasi terdiri dari **Screen 1 (Beranda/Katalog)** yang menampilkan daftar paket dan **Screen 2 (Detail Katalog)** yang menggunakan `StatefulWidget`[cite: 1].
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Fitur Aplikasi
+- **Screen 1 (Beranda):** Menggunakan `StatelessWidget` dan `ListView` untuk menampilkan 3 kartu paket interaktif[cite: 1].
+- **Stack Navigation:** Berpindah ke Screen 2 menggunakan `Navigator.push` saat tombol "Pilih Paket" diklik[cite: 1].
+- **Screen 2 (Detail Katalog):** Menggunakan `StatefulWidget` dengan tata letak vertikal (`Column`), tombol *back*, serta container berlatar belakang pastel untuk teks deskripsi[cite: 1].
+- **Interaktivitas State:** Memiliki tombol penanda (bookmark) interaktif di Screen 2[cite: 1].
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## 🛠️ Cara Setup Project
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone Repository ini:**
+   ```bash
+   git clone [https://github.com/USERNAME/NAMA-REPO.git](https://github.com/USERNAME/NAMA-REPO.git)
+   cd tugas_pertama
