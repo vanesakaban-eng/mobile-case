@@ -16,9 +16,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// ==========================================
-// SCREEN 1: BERANDA (Menampilkan 3 Card)
-// ==========================================
 class BerandaScreen extends StatelessWidget {
   const BerandaScreen({super.key});
 
@@ -52,7 +49,7 @@ class BerandaScreen extends StatelessWidget {
             isRecommended: true,
           ),
           SizedBox(height: 20),
-          // Card 3
+       
           TieredPricingCard(
             title: "Paket Enterprise",
             price: "Rp 12.000.000",
@@ -66,7 +63,7 @@ class BerandaScreen extends StatelessWidget {
   }
 }
 
-// Widget Tampilan Kartu
+
 class TieredPricingCard extends StatelessWidget {
   final String title;
   final String price;
@@ -82,6 +79,19 @@ class TieredPricingCard extends StatelessWidget {
     required this.color,
     required this.isRecommended,
   });
+
+  void _navigateToDetail(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailKatalogScreen(
+          title: title,
+          price: price,
+          description: description,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,35 +116,43 @@ class TieredPricingCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Column(
-                  children: [
-                    Icon(Icons.laptop_mac, size: 50, color: color),
-                    const SizedBox(height: 8),
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              // Menggunakan ListTile untuk memenuhi poin requirement (a)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.laptop_mac, size: 40, color: color),
+                title: GestureDetector(
+                  onTap: () => _navigateToDetail(context), // Klik pada Title
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
+                  ),
+                ),
+                subtitle: Text(
+                  description,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
                 children: [
                   Text(
                     price,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: color),
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
                   ),
                   const SizedBox(width: 4),
-                  const Text("/ proyek", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                  const Text(
+                    "/ proyek",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -150,29 +168,26 @@ class TieredPricingCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
+              // Tombol Call to Action (CTA)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // PINDAH KE SCREEN 2 MENGGUNAKAN Navigator.push
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailKatalogScreen(
-                          title: title,
-                          price: price,
-                          description: description,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () => _navigateToDetail(context), // Klik pada CTA
                   style: ElevatedButton.styleFrom(
                     backgroundColor: color,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
-                  child: const Text("Pilih Paket", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    "Pilih Paket",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -188,12 +203,20 @@ class TieredPricingCard extends StatelessWidget {
                 color: Colors.amber,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 4, offset: const Offset(0, 2)),
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
               ),
               child: const Text(
                 "Rekomendasi",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
             ),
           ),
@@ -218,9 +241,7 @@ class FeatureItem extends StatelessWidget {
   }
 }
 
-// ==========================================
-// SCREEN 2: DETAIL KATALOG (StatefulWidget)
-// ==========================================
+
 class DetailKatalogScreen extends StatefulWidget {
   final String title;
   final String price;
@@ -238,7 +259,7 @@ class DetailKatalogScreen extends StatefulWidget {
 }
 
 class _DetailKatalogScreenState extends State<DetailKatalogScreen> {
-  // Variabel state untuk mengubah warna/ikon bookmark saat diklik
+  // Variabel state interaktif
   bool isBookmarked = false;
 
   @override
@@ -248,7 +269,7 @@ class _DetailKatalogScreenState extends State<DetailKatalogScreen> {
         title: const Text("Detail Katalog"),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        // Tombol kembali ke Screen 1
+        // Icon back bawaan/custom untuk kembali ke Screen 1
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -264,11 +285,16 @@ class _DetailKatalogScreenState extends State<DetailKatalogScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                // Tombol interaktif untuk merubah State
+                // Tombol interaktif merubah State
                 IconButton(
                   icon: Icon(
                     isBookmarked ? Icons.bookmark : Icons.bookmark_border,
@@ -279,26 +305,34 @@ class _DetailKatalogScreenState extends State<DetailKatalogScreen> {
                       isBookmarked = !isBookmarked;
                     });
                   },
-                )
+                ),
               ],
             ),
             const SizedBox(height: 10),
             Text(
               widget.price,
-              style: const TextStyle(fontSize: 22, color: Colors.blueAccent, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 22,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 24),
-            // Container warna pastel untuk deskripsi
+            // Container latar warna pastel untuk deskripsi
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue[50],
+                color: Colors.blue[50], // Warna pastel
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 widget.description,
-                style: const TextStyle(fontSize: 16, color: Colors.black87, height: 1.5),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                  height: 1.5,
+                ),
               ),
             ),
           ],
